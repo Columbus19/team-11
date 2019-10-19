@@ -156,10 +156,14 @@ def upload_file():
         del df['temp']
         df.set_index('date', inplace=True)
         df.reset_index(inplace=True)
+        user_id = session['id']
+        df['parent_id'] = user_id
         # deletes saved pdf file
         os.remove(filepath)
 
         print(df)
+        conn = functions.get_database_connection()
+        df.to_sql(name='debt', con=conn, index=False, if_exists='append')
 
 
         return render_template('homepage.html')
