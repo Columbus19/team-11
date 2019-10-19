@@ -46,22 +46,3 @@ $(window).scroll(function() {
     });
 });
 
-// $('#notes').change(function(e) {
-//     e.preventDefault();
-//     $.getJSON('/background_process/', {
-//       notes: $('input[name="notes"]').val(),
-//     }, function(data) {
-//       $("#result").text(data.result);
-//     });
-//     return false;
-// });
-
-$('#notes').keyup(function(){
-     $.getJSON('/background_process/', {
-          notes: $('input[name="notes"]').val(),
-        }, function(data) {
-          $("#result").html(data.result);
-        });
-    return false;
-});
-
