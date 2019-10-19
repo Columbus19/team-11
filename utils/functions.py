@@ -105,6 +105,7 @@ def signup_user(username, password, email):
        cursor.close()
 
 
+
 def generate_password_hash(password):
    '''
        Function for generating a password hash
