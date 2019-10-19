@@ -15,15 +15,25 @@ from utils.decorators import login_required
 from flask_pagedown import PageDown
 from flask import Markup
 import utils.functions as functions
+from werkzeug.utils import secure_filename
+
 import datetime
 import markdown
 import random
+import pdftables_api
+import pandas as pd
+import os
 
 app = Flask(__name__)
 api = Api(app)
 pagedown = PageDown(app)
 parser = reqparse.RequestParser()
 app.secret_key = str(random.randint(1, 20))
+app.config['MAX_CONTENT_LENGTH'] = 55 * 1024 * 1024
+UPLOAD_FOLDER = '.'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+os.makedirs(os.path.join(app.instance_path), exist_ok=True)
+
 
 @app.route('/')
 @app.route('/homepage')
@@ -54,11 +64,15 @@ def login():
             session['username'] = username
             session['id'] = user_id
             functions.store_last_login(session['id'])
-            return redirect('/homepage')
+            return redirect('/upload_data/')
         else:
             flash('Username/Password Incorrect!')
     return render_template('login.html', form=form)
 
+
+@app.route('/upload_data/', methods=('GET', 'POST'))
+def upload_data():
+    return render_template('upload_data.html')
 
 @app.route('/signup/', methods=('GET', 'POST'))
 def signup():
@@ -118,6 +132,38 @@ def change_password():
         functions.edit_password(password, session['id'])
         return redirect('/profile/settings/')
     return render_template('change_password.html', form=form, username=session['username'])
+
+
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        file = request.files['file']
+        c = pdftables_api.Client('5niw5iiwxvgk')
+        filepath = os.path.join(app.instance_path, secure_filename(file.filename))
+        # saves file to be opened by pdftohtml converter
+        file.save(filepath)
+        # converts pdf to html
+        temp = c.html(filepath)
+        # converts html to pandas dataframe
+        df = pd.read_html(temp)
+        # data preproccessing
+        df = pd.concat(df)
+        df.columns = ['date', 'description', 'location', 'temp', 'amount', 'balance']
+        df = df.dropna(subset=['date'])
+        df = df[df['date'].map(len) < 6]
+        df.location.fillna(df.description, inplace=True)
+        del df['description']
+        del df['temp']
+        df.set_index('date', inplace=True)
+        df.reset_index(inplace=True)
+        # deletes saved pdf file
+        os.remove(filepath)
+
+        print(df)
+
+
+        return render_template('homepage.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
