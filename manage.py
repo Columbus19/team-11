@@ -64,15 +64,11 @@ def login():
             session['username'] = username
             session['id'] = user_id
             functions.store_last_login(session['id'])
-            return redirect('/upload_data/')
+            return redirect('/')
         else:
             flash('Username/Password Incorrect!')
     return render_template('login.html', form=form)
 
-
-@app.route('/upload_data/', methods=('GET', 'POST'))
-def upload_data():
-    return render_template('upload_data.html')
 
 @app.route('/signup/', methods=('GET', 'POST'))
 def signup():
