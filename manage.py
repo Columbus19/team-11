@@ -20,7 +20,7 @@ from werkzeug.utils import secure_filename
 import datetime
 import markdown
 import random
-# import pdftables_api
+import pdftables_api
 import pandas as pd
 import os
 
@@ -92,7 +92,7 @@ def signup():
             session['username'] = username
             user_id = functions.check_user_exists(username, password)
             session['id'] = user_id
-            return redirect('/homepage')
+            return redirect('/login')
     return render_template('signup.html', form=form)
 
 
@@ -135,10 +135,11 @@ def change_password():
 
 
 @app.route('/uploader', methods = ['GET', 'POST'])
+@login_required
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
-       # c = pdftables_api.Client('5niw5iiwxvgk')
+        c = pdftables_api.Client('5niw5iiwxvgk')
         filepath = os.path.join(app.instance_path, secure_filename(file.filename))
         # saves file to be opened by pdftohtml converter
         file.save(filepath)
@@ -166,8 +167,14 @@ def upload_file():
         df.to_sql(name='debt', con=conn, index=False, if_exists='append')
 
 
-        return render_template('homepage.html')
+        return render_template('bank_data.html')
+
+
+@app.route('/bank_data/', methods = ['GET', 'POST'])
+@login_required
+def bank_data():
+    return render_template('bank_data.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
