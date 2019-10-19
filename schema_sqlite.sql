@@ -13,7 +13,7 @@ BEGIN
   update users SET last_login = (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) WHERE id = NEW.id;
 END;
 CREATE TABLE debt(
- date VARCHAR(20),
+date VARCHAR(20),
  location VARCHAR(255),
  -- amount DOUBLE,
  -- balance DOUBLE,

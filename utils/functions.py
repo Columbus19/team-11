@@ -1,13 +1,14 @@
 import os
 import hashlib
 import logging
+import sqlite3
+
 
 
 def get_database_connection():
    '''
        Creates a connection between selected database
    '''
-   import sqlite3
    sqlite_file = 'user.db'
    file_exists = os.path.isfile(sqlite_file)
    conn = sqlite3.connect(sqlite_file)
@@ -96,14 +97,7 @@ def signup_user(username, password, email):
    conn = get_database_connection()
    try:
        cursor = conn.cursor()
-       cursor.execute(
-           "INSERT INTO users(username, password, email) VALUES (?, ?, ?)", (username, password, email))
-       # cursor.execute("INSERT INTO debt(date, location, id) VALUES (?, ?, ?)", ("Bob", "joshuta","SELECT id FROM user WHERE id = 0" ))
-       # cursor.execute("SELECT *  from debt")
-       # data = cursor.fetchone()
-       # print(data, flush = True)
-       # print(cursor.execute("SELECT * FROM debt-user"), flush=True)
-       # print("hi", flush = True)
+       cursor.execute("INSERT INTO users(username, password, email) VALUES (?, ?, ?)", (username, password, email))
        conn.commit()
        cursor.close()
        return
