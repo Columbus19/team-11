@@ -21,30 +21,16 @@
                 </div><!-- ./navbar-header -->
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" id="navbar-links">
-                        {% if username %}
-                            <li>
-                                <a href="/notes/add/">Test</a>
+                            <li id="logo">
+                                <a href="/"> <img src="{{ url_for('static', filename='images/logo.png') }}" width="50px"></a>
+                                <div id="logo_text">Apprisen</div>
                             </li>
-                            <li>
-                                <a href="/profile/">Test</a>
-                            </li>
-                            <li>
-                                <a href="/tags/add/">Test</a>
-                            </li>
-                            <li>
-                                <a href="/tags/">Test!</a>
-                            </li>
-                        {% else %}
-                            <li>
-                                <img src="{{ url_for('static', filename='images/logo.png') }}" width="50px">
-                            </li>
-                        {% endif %}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if username %}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Welcome, {{ username }} <span class="caret"></span>
+                                    Account <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
