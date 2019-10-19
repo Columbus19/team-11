@@ -20,7 +20,7 @@ from werkzeug.utils import secure_filename
 import datetime
 import markdown
 import random
-import pdftables_api
+# import pdftables_api
 import pandas as pd
 import os
 
@@ -139,7 +139,7 @@ def change_password():
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
-        c = pdftables_api.Client('5niw5iiwxvgk')
+        # c = pdftables_api.Client('5niw5iiwxvgk')
         filepath = os.path.join(app.instance_path, secure_filename(file.filename))
         # saves file to be opened by pdftohtml converter
         file.save(filepath)
