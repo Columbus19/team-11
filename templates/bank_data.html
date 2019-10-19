@@ -57,6 +57,26 @@ function createPareto(){
 	chart.axisY2[0].set("maximum", 100);
 }
 
+
+var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    title: {
+        text: "My Monthly Spending Habits"
+    },
+    data: [{
+        type: "pie",
+        startAngle: 240,
+        yValueFormatString: "##0.00\"%\"",
+        indexLabel: "{label} {y}",
+        dataPoints: [
+            {y: 58.9, label: "Bills"},
+            {y: 21.1, label: "Department Stores"},
+            {y: 12.00, label: "Fast Food"},
+            {y: 8.00, label: "Other"}
+        ]
+    }]
+});
+chart.render();
 }
 </script>
 </head>

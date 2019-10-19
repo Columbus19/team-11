@@ -24,6 +24,27 @@ $(document).ready(function(){
     });
     $("#todayDate").html( retDate() );
     $("#billDate").html( billDate(3));
+    $('#streakNumber').html(Math.round(20*Math.random(), 2));
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        title: {
+            text: "My Monthly Spending Habits"
+        },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [
+                {y: 58.9, label: "Bills"},
+                {y: 21.1, label: "Department Stores"},
+                {y: 12.00, label: "Fast Food"},
+                {y: 8.00, label: "Other"}
+            ]
+        }]
+    });
+    chart.render();
 })
 
 // for collapsing navbar on small screen after clicking on a link

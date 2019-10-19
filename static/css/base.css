@@ -143,6 +143,7 @@ nav .navbar-brand {
 #billDate {
     color: #538334;
 }
+
 #pay > h2 {
     display: inline;
 }
@@ -157,4 +158,12 @@ nav .navbar-brand {
 
 .fileUpload {
     margin-left: 36vw;
+}
+
+#AccountTab {
+    margin-left: 50px;
+}
+
+#Notifications {
+    margin-left: 50px;
 }

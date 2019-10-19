@@ -2,13 +2,13 @@
 
 {% block content %}
     <div class="jumbotron text-center" style="padding-top: 5%">
-
-        {%if username%}
-        <h1>Welcome back, {{ username }}</h1>
-        {%else%}
-        <h1><span class="element"></span></h1><span class="typed-cursor"></span>
-        {%endif%}
-
+        {% if username %}
+        <h1>Welcome back, {{ username }}!</h1>
+        <h2>Login Streak:</h2><h2 id="streakNumber"></h2>
+        {% else %}
+        <h1>Welcome to Apprisen</h1>
+        {% endif %}
+        
         <h2>Today's Date is </h2><h2 id='todayDate'></h2>
         {% if username %}
         <div id="pay">
@@ -16,7 +16,6 @@
         </div>
         {% endif %}
     </div>
-
 
     <div class="text-center setGreen">
         {% if username %}

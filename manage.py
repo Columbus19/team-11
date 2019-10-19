@@ -20,7 +20,7 @@ from werkzeug.utils import secure_filename
 import datetime
 import markdown
 import random
-# import pdftables_api
+import pdftables_api
 import pandas as pd
 import os
 
@@ -50,6 +50,10 @@ def home_page():
         return render_template('homepage.html')
 
 
+@app.route('/graphs')
+def graph_page():
+    return render_template('graphs.html')
+
 @app.route('/login/', methods=('GET', 'POST'))
 def login():
     '''
@@ -70,6 +74,10 @@ def login():
     return render_template('login.html', form=form)
 
 
+@app.route('/upload_data/', methods=('GET', 'POST'))
+def upload_data():
+    return render_template('upload_data.html')
+
 @app.route('/signup/', methods=('GET', 'POST'))
 def signup():
     '''
@@ -88,7 +96,7 @@ def signup():
             session['username'] = username
             user_id = functions.check_user_exists(username, password)
             session['id'] = user_id
-            return redirect('/login')
+            return redirect('/homepage')
     return render_template('signup.html', form=form)
 
 
@@ -131,11 +139,10 @@ def change_password():
 
 
 @app.route('/uploader', methods = ['GET', 'POST'])
-@login_required
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
-        # c = pdftables_api.Client('5niw5iiwxvgk')
+        c = pdftables_api.Client('5niw5iiwxvgk')
         filepath = os.path.join(app.instance_path, secure_filename(file.filename))
         # saves file to be opened by pdftohtml converter
         file.save(filepath)
@@ -153,24 +160,14 @@ def upload_file():
         del df['temp']
         df.set_index('date', inplace=True)
         df.reset_index(inplace=True)
-        user_id = session['id']
-        df['parent_id'] = user_id
         # deletes saved pdf file
         os.remove(filepath)
 
         print(df)
-        conn = functions.get_database_connection()
-        df.to_sql(name='debt', con=conn, index=False, if_exists='append')
 
 
         return render_template('bank_data.html')
 
 
-@app.route('/bank_data/', methods = ['GET', 'POST'])
-@login_required
-def bank_data():
-    return render_template('bank_data.html')
-
-
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
