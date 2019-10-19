@@ -16,7 +16,6 @@ from flask_pagedown import PageDown
 from flask import Markup
 import utils.functions as functions
 from werkzeug.utils import secure_filename
-os.makedirs(os.path.join(app.instance_path), exist_ok=True)
 
 import datetime
 import markdown
@@ -33,6 +32,7 @@ app.secret_key = str(random.randint(1, 20))
 app.config['MAX_CONTENT_LENGTH'] = 55 * 1024 * 1024
 UPLOAD_FOLDER = '.'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+os.makedirs(os.path.join(app.instance_path), exist_ok=True)
 
 
 @app.route('/')
@@ -64,11 +64,15 @@ def login():
             session['username'] = username
             session['id'] = user_id
             functions.store_last_login(session['id'])
-            return redirect('/homepage')
+            return redirect('/upload_data')
         else:
             flash('Username/Password Incorrect!')
     return render_template('login.html', form=form)
 
+
+@app.route('/upload_data/', methods=('GET', 'POST'))
+def upload_data():
+    return render_template('uplaod_data.html')
 
 @app.route('/signup/', methods=('GET', 'POST'))
 def signup():
