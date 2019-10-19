@@ -4,6 +4,7 @@
     <div class="jumbotron text-center" style="padding-top: 5%">
         {% if username %}
         <h1>Welcome back, {{ username }}!</h1>
+        <h2>Login Streak:</h2><h2 id="streakNumber"></h2>
         {% else %}
         <h1>Welcome to Apprisen</h1>
         {% endif %}
