@@ -135,3 +135,26 @@ nav .navbar-brand {
 .setGreen{
     background-color: #cbead8;
 }
+
+#pay {
+    text-align: center;
+}
+
+#billDate {
+    color: #538334;
+}
+#pay > h2 {
+    display: inline;
+}
+
+#upTitle {
+    font-size: 30px;
+}
+
+.upload {
+    font-size: 20px;
+}
+
+.fileUpload {
+    margin-left: 36vw;
+}

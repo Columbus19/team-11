@@ -23,6 +23,7 @@ $(document).ready(function(){
         } // End if
     });
     $("#todayDate").html( retDate() );
+    $("#billDate").html( billDate(3));
 })
 
 // for collapsing navbar on small screen after clicking on a link
@@ -52,7 +53,14 @@ function retDate() {
     let weekDays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     let monthNames= [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
-    return(weekDays[d.getDay() - 1] + ", " + monthNames[d.getMonth()] + " " + d.getDate());
+    return(weekDays[d.getDay() - 1] + ", " + monthNames[d.getMonth() - 1] + " " + d.getDate());
+}
 
+function billDate(i) {
+    let d = new Date();
+    let weekDays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    let monthNames= [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+    return(weekDays[(d.getDay() + i - 1)%7] + ", " + monthNames[d.getMonth()] + " " + (d.getDate() + (i%30)));
 }
 

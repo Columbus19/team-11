@@ -2,13 +2,42 @@
 
 {% block content %}
     <div class="jumbotron text-center" style="padding-top: 5%">
+
         {%if username%}
         <h1>Welcome back, {{ username }}</h1>
         {%else%}
         <h1><span class="element"></span></h1><span class="typed-cursor"></span>
         {%endif%}
 
-        <h2>Today's Date is </h2><h2 id='todayDate'></h2></div>
+        <h2>Today's Date is </h2><h2 id='todayDate'></h2>
+        {% if username %}
+        <div id="pay">
+            <h2>Remember, you're next payment is due </h2><h2 id="billDate"></h2>
+        </div>
+        {% endif %}
+    </div>
+
+
+    <div class="text-center setGreen">
+        {% if username %}
+        <div class="upload">
+                <h5 id="upTitle" class="featTitle">So... what are you waiting for?</h5>
+                <p class="upDesc">Upload your bank statement as a PDF now!</p>
+                <form action="http://localhost:5000/uploader" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" class="fileUpload"/>
+                    <div class="labelHolder">
+                        <label class="fileLabel" for="file">Choose a file</label>>
+                    </div>
+                    <div class="submitHolder">
+                        <input class="submit" type="submit" />
+                    </div>
+                </form>
+                <p class="fileName"></p>
+            </div>
+        {% else %}
+        <h1>About Us</h1>
+        {% endif %}
+    </div>
     </div>
 
     <div class="container" id="about">
