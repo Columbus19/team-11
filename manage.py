@@ -92,7 +92,7 @@ def signup():
             session['username'] = username
             user_id = functions.check_user_exists(username, password)
             session['id'] = user_id
-            return redirect('/homepage')
+            return redirect('/login')
     return render_template('signup.html', form=form)
 
 
@@ -135,6 +135,7 @@ def change_password():
 
 
 @app.route('/uploader', methods = ['GET', 'POST'])
+@login_required
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
@@ -166,8 +167,14 @@ def upload_file():
         df.to_sql(name='debt', con=conn, index=False, if_exists='append')
 
 
-        return render_template('homepage.html')
+        return render_template('bank_data.html')
+
+
+@app.route('/bank_data/', methods = ['GET', 'POST'])
+@login_required
+def bank_data():
+    return render_template('bank_data.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
