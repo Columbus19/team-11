@@ -19,7 +19,7 @@
 }
 
 body{
-    background-color: rgb(242, 243, 244);
+    background-color: #cbead8;
 }
 
 /* ===================================== Homepage styles ======================================== */
@@ -132,3 +132,6 @@ nav .navbar-brand {
     color: #73b647;
 }
 
+.setGreen{
+    background-color: #73b647;
+}
