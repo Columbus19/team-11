@@ -22,6 +22,7 @@ $(document).ready(function(){
             });
         } // End if
     });
+    $("#todayDate").html( retDate() );
 })
 
 // for collapsing navbar on small screen after clicking on a link
@@ -45,4 +46,13 @@ $(window).scroll(function() {
         }
     });
 });
+
+function retDate() {
+    let d = new Date();
+    let weekDays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    let monthNames= [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+    return(weekDays[d.getDay() - 1] + ", " + monthNames[d.getMonth()] + " " + d.getDate());
+
+}
 
