@@ -2,8 +2,11 @@
 
 {% block content %}
     <div class="jumbotron text-center" style="padding-top: 5%">
-        <h1>Testing</span>
-
+        {%if username%}
+        <h1>Welcome {{ username }}</span>
+        {%else%}
+        <h1>Log in or sign up for free! <br> Financial Freedom should be for everyone!</span>
+        {%endif%}
         <br>
         <br>
         <h3>Test Description!</h3>
