@@ -11,11 +11,11 @@
             <input type="file" name="file" class="fileUpload"/>
             <div class="labelHolder">
                 <label class="fileLabel" for="file">Choose a file</label>
-                <img class="uploadImage" src="static/Images/upload.png">
+                <img class="uploadImage" src="{{ url_for('static', filename='images/upload.png') }}">
             </div>
             <div class="submitHolder">
                 <input class="submit" type="submit" />
-                <img class="submitImage" src="static/Images/submit.png">
+                <img class="submitImage" src="{{ url_for('static', filename='images/submit.png') }}">
             </div>
         </form>
         <p class="fileName"></p>
