@@ -117,3 +117,18 @@ nav .navbar-brand {
   display: inline-block;
   vertical-align: baseline;
 }
+
+/* ===================================== ======================================== */
+
+#logo_text{
+    display: inline;
+}
+
+#logo_link {
+    display:inline;
+}
+
+#todayDate {
+    color: #73b647;
+}
+

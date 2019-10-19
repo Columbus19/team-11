@@ -13,5 +13,5 @@ def tmp():
     data = cursor.fetchone()
     print(data, flush = True)
        # print(cursor.execute("SELECT * FROM debt-user"), flush=True)
-    #    print("hi", flush = True)
+    #    print("hi", flush = True) gfyhtfgyh
 tmp()
