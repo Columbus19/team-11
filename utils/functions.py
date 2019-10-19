@@ -1,11 +1,12 @@
 import os
 import hashlib
+import logging
 
 
 def get_database_connection():
     '''
         Creates a connection between selected database
-    '''
+    '''    
     import sqlite3
     sqlite_file = 'user.db'
     file_exists = os.path.isfile(sqlite_file)
@@ -92,8 +93,17 @@ def signup_user(username, password, email):
     '''
     conn = get_database_connection()
     try:
+#         INSERT INTO joke(joke_text, joke_date, author_id)
+#    -> VALUES (‘Humpty Dumpty had a great fall.’, ‘1899–03–13’, (SELECT id FROM author WHERE author_name = ‘Famous Anthony’));
         cursor = conn.cursor()
         cursor.execute("INSERT INTO users(username, password, email) VALUES (?, ?, ?)", (username, password, email))
+        cursor.execute("INSERT INTO debt(date,location, id) VALUES(?,?,?)", ("Bob", "Joshua", "SELECT id FROM user WHERE id = 0"))
+        # cursor.execute("SELECT *  from debt")
+        data = cursor.fetchone()
+        print(data, flush = True)
+        # print(cursor.execute("SELECT * FROM debt-user"), flush=True)
+        # print("hi", flush = True)
+        
         conn.commit()
         cursor.close()
         return
